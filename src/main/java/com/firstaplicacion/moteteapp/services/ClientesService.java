@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ClientesService {
@@ -21,8 +22,8 @@ public class ClientesService {
         this.repository = repository;
     }
     //Method GET: Get all Clients
-    public List<Clientes> getCliente(){
-        return repository.findAll();
+    public List<ClienteDTO> getCliente(){
+        return convierteDatos(repository.findAll());
     }
 
     //Method GET: Get Clients by id
@@ -46,6 +47,8 @@ public class ClientesService {
             throw new IllegalStateException("email taken");
         }
         repository.save(clientes);
+        System.out.println("se guardo correctamente");
+
     }
 
     //Method DELETE: Delete Clients from the Data Base
@@ -56,6 +59,7 @@ public class ClientesService {
                     "the student with id " + clientesId + " does not exists");
         }
         repository.deleteById(clientesId);
+        System.out.println("se elimino correctamente");
     }
 
     //Method PUT: Actualiza los valores de los CLients
@@ -92,6 +96,14 @@ public class ClientesService {
             }
             clientes.setTelefono(telefono);
         }
+    }
+
+    public List<ClienteDTO> convierteDatos(List<Clientes> clientes){
+        return clientes.stream()
+                .map(c -> new ClienteDTO(c.getId(), c.getName(),
+                        c.getEdad(), c.getFechaNacimiento(), c.getTelefono(),
+                        c.getEmail(), c.getDireccion()))
+                .collect(Collectors.toList());
     }
 
 

@@ -19,7 +19,7 @@ public class ClientesController {
     }
 
     @GetMapping(path = "/clientes")
-    public List<Clientes> getCliente(){
+    public List<ClienteDTO> getCliente(){
         return clientesService.getCliente();
     }
 

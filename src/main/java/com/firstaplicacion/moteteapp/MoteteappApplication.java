@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class  MoteteappApplication {
 
 	public static void main(String[] args) {
-
 		SpringApplication.run(MoteteappApplication.class, args);
 	}
 }
